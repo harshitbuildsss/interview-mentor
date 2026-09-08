@@ -42,7 +42,7 @@ DB_NAME=interview_mentor
 DB_USERNAME=root
 DB_PASSWORD=your_mysql_password
 JWT_SECRET=your_super_secret_jwt_key_at_least_256_bits_long
-
+```
 ### 3. Backend Setup (Spring Boot)
 mvn clean install
 mvn spring-boot:run
