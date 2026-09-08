@@ -34,6 +34,7 @@ An AI-powered full-stack technical interview preparation platform. The applicati
 ### 2. Configure Environment Variables
 Set the following variables in your local environment or terminal:
 
+```env
 GROQ_API_KEY=gsk_your_groq_api_key_here
 DB_HOST=localhost
 DB_PORT=3306
