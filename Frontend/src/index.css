@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fdf7f5;
+  --sidebar: #f8ecee;
+  --card-bg: #ffffff;
+  --card-border: #eee0e2;
+  --ink: #1f2333;
+  --muted: #6b7280;
+  --accent: #7c1d3f;
+  --accent-2: #9c2a52;
+  --accent-soft: #fbf0f2;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
