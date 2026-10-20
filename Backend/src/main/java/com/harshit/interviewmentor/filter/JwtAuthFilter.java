@@ -22,13 +22,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Skip filter entirely for auth endpoints
         String path = request.getServletPath();
+
+        // Authentication endpoints do not require a JWT.
         if (path.startsWith("/api/auth/")) {
             filterChain.doFilter(request, response);
             return;
@@ -41,27 +43,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             try {
                 if (jwtUtil.isTokenValid(token)) {
-                    String  email  = jwtUtil.extractEmail(token);
+                    String email = jwtUtil.extractEmail(token);
                     Integer userId = jwtUtil.extractUserId(token);
 
-                    UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                            email,
-                            null,
-                            Collections.emptyList()
-                        );
+                    // Store the authenticated user's ID as the principal.
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userId,
+                                    null,
+                                    Collections.emptyList()
+                            );
 
-                    authToken.setDetails(
-                        new WebAuthenticationDetailsSource()
-                            .buildDetails(request)
+                    authentication.setDetails(
+                            new WebAuthenticationDetailsSource()
+                                    .buildDetails(request)
                     );
 
-                    // Store userId as credential so controllers can read it
                     SecurityContextHolder.getContext()
-                        .setAuthentication(authToken);
+                            .setAuthentication(authentication);
+                } else {
+                    SecurityContextHolder.clearContext();
                 }
             } catch (Exception e) {
-                // Invalid token — clear context, let Security return 403
                 SecurityContextHolder.clearContext();
             }
         }

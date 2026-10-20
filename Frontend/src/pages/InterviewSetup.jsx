@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import Navbar from '../components/Navbar'
 import api from '../api/axios'
-
+import AppHeader from '../components/AppHeader'
 const INK = '#1f2333'
 const MUTED = '#6b7280'
 const ACCENT = '#7c1d3f'
@@ -123,7 +122,7 @@ export default function InterviewSetup() {
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#fdf7f5]">
-      <Navbar />
+      <AppHeader />
 
       <main className="flex-1 overflow-y-auto px-6 py-8 flex justify-center">
         <div className="w-full max-w-xl">
